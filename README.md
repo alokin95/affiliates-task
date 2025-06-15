@@ -12,6 +12,8 @@ change dataase credentials
 
 php artisan key:generate
 
+copy affiliates.txt to storage/app/private
+
 php artisan serve
 
 Visit:
