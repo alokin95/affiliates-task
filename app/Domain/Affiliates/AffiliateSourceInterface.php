@@ -7,8 +7,5 @@ use App\DTOs\AffiliateDTO;
 
 interface AffiliateSourceInterface
 {
-    /**
-     * @return AffiliateDto[]
-     */
     public function getAll(): AffiliateCollection;
 }

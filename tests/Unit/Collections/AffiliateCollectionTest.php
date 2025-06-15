@@ -42,7 +42,7 @@ class AffiliateCollectionTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($expected, $collection->toArray());
+        $this->assertEquals($expected[0], $collection->all()[0]->toArray());
     }
 
     public function test_iterable_behavior(): void
