@@ -36,6 +36,7 @@ readonly class FileAffiliateSource implements AffiliateSourceInterface
                 }
             }
 
+            /** @var array{affiliate_id:int|string,name:string,latitude:float|string,longitude:float|string} $data */
             $affiliates[] = AffiliateDTO::fromArray($data);
         }
 
