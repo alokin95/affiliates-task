@@ -3,6 +3,7 @@
 namespace Unit\Application;
 
 use App\Application\AffiliateDistanceService;
+use App\Collections\AffiliateCollection;
 use App\Domain\Affiliates\AffiliateSourceInterface;
 use App\DTOs\AffiliateDTO;
 use PHPUnit\Framework\MockObject\Exception;
@@ -20,7 +21,7 @@ class AffiliateDistanceServiceTest extends TestCase
     private function createServiceWith(array $dtos): AffiliateDistanceService
     {
         $mock = $this->createMock(AffiliateSourceInterface::class);
-        $mock->method('getAll')->willReturn($dtos);
+        $mock->method('getAll')->willReturn(new AffiliateCollection($dtos));
 
         return new AffiliateDistanceService($mock);
     }

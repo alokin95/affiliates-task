@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure;
 
+use App\Collections\AffiliateCollection;
 use App\Core\Exception\FileParseException;
 use App\Core\Storage\FileReaderInterface;
 use App\Domain\Affiliates\AffiliateSourceInterface;
@@ -15,10 +16,7 @@ readonly class FileAffiliateSource implements AffiliateSourceInterface
     ) {
     }
 
-    /**
-     * @return AffiliateDTO[]
-     */
-    public function getAll(): array
+    public function getAll(): AffiliateCollection
     {
         $raw   = $this->reader->read($this->filePath);
         $lines = array_filter(explode("\n", trim($raw)));
@@ -41,6 +39,6 @@ readonly class FileAffiliateSource implements AffiliateSourceInterface
             $affiliates[] = AffiliateDTO::fromArray($data);
         }
 
-        return $affiliates;
+        return new AffiliateCollection($affiliates);
     }
 }

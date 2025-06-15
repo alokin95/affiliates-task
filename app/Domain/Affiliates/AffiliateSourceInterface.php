@@ -2,6 +2,7 @@
 
 namespace App\Domain\Affiliates;
 
+use App\Collections\AffiliateCollection;
 use App\DTOs\AffiliateDTO;
 
 interface AffiliateSourceInterface
@@ -9,5 +10,5 @@ interface AffiliateSourceInterface
     /**
      * @return AffiliateDto[]
      */
-    public function getAll(): array;
+    public function getAll(): AffiliateCollection;
 }

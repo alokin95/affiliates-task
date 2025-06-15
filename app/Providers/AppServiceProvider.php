@@ -21,9 +21,13 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AffiliateDistanceServiceInterface::class, AffiliateDistanceService::class);
         $this->app->bind(FileReaderInterface::class, LaravelFileReader::class);
         $this->app->bind(AffiliateSourceInterface::class, function ($app) {
+            $filePath = config('affiliates.file_path');
+            if (!is_string($filePath)) {
+                throw new \RuntimeException('Expected affiliates.file_path to be a string, got ' . gettype($filePath));
+            }
             return new FileAffiliateSource(
                 $app->make(FileReaderInterface::class),
-                config('affiliates.file_path')
+                $filePath
             );
         });
     }

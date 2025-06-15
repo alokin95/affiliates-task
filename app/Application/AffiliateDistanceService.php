@@ -24,23 +24,20 @@ readonly class AffiliateDistanceService implements AffiliateDistanceServiceInter
     ): AffiliateCollection {
         $allAffiliates = $this->affiliateSource->getAll();
 
-        $matching = array_filter(
-            $allAffiliates,
-            fn (AffiliateDTO $affiliate) => $this->haversineDistance(
-                $affiliate->latitude,
-                $affiliate->longitude,
-                $officeLatitude,
-                $officeLongitude
-            ) <= $radiusKm
-        );
+        $matching = $allAffiliates
+            ->filter(fn (AffiliateDTO $a) =>
+                $this->haversineDistance(
+                    $a->latitude,
+                    $a->longitude,
+                    $officeLatitude,
+                    $officeLongitude
+                ) <= $radiusKm
+            )
+            ->sort(fn (AffiliateDTO $a, AffiliateDTO $b): int => $a->affiliateId <=> $b->affiliateId);
 
-        usort(
-            $matching,
-            fn (AffiliateDTO $a, AffiliateDTO $b) => $a->affiliateId <=> $b->affiliateId
-        );
-
-        return new AffiliateCollection($matching);
+        return new AffiliateCollection($matching->all());
     }
+
 
     private function haversineDistance(
         float $sourceLatitude,

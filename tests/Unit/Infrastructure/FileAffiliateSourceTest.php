@@ -40,8 +40,8 @@ class FileAffiliateSourceTest extends TestCase
 
         $this->assertCount(2, $affiliates);
         $this->assertContainsOnlyInstancesOf(AffiliateDTO::class, $affiliates);
-        $this->assertSame(1, $affiliates[0]->affiliateId);
-        $this->assertSame('Company 2', $affiliates[1]->name);
+        $this->assertSame(1, $affiliates->all()[0]->affiliateId);
+        $this->assertSame('Company 2', $affiliates->all()[1]->name);
     }
 
     /**
@@ -63,7 +63,7 @@ class FileAffiliateSourceTest extends TestCase
         $affiliates = $source->getAll();
 
         $this->assertCount(2, $affiliates);
-        $this->assertEquals([1, 3], array_map(fn (AffiliateDTO $d): int => $d->affiliateId, $affiliates));
+        $this->assertEquals([1, 3], array_map(fn (AffiliateDTO $d): int => $d->affiliateId, $affiliates->all()));
     }
 
     /**

@@ -25,7 +25,7 @@ readonly class LaravelFileReader implements FileReaderInterface
 
         $contents = Storage::disk($this->disk)->get($path);
 
-        if ($contents === '') {
+        if (!$contents) {
             throw new FileReadException("File is empty: {$path}");
         }
 
