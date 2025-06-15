@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Unit\Application;
 
 use App\Application\AffiliateDistanceService;
 use App\Domain\Affiliates\AffiliateSourceInterface;

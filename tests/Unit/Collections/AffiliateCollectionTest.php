@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Unit\Collections;
 
 use App\Collections\AffiliateCollection;
 use App\DTOs\AffiliateDTO;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Unit\Http\Responses;
 
 use App\Http\Responses\ApiResponse;
 use Illuminate\Pagination\LengthAwarePaginator;
