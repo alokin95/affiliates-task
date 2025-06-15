@@ -8,22 +8,12 @@ use App\Utils\TypeHelper;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
-class AffiliateController extends Controller
+class AffiliateController extends BaseController
 {
     use PaginatesArray;
 
     public function index(Request $request, AffiliateDistanceServiceInterface $service): View
     {
-        $perPage = TypeHelper::toIntOrDefault(
-            $request->input('per_page', config('affiliates.per_page', 10)),
-            10
-        );
-
-        $page = TypeHelper::toIntOrDefault(
-            $request->input('page', config('affiliates.page', 1)),
-            1
-        );
-
         $officeLat = TypeHelper::toFloatStrict(
             config('affiliates.office_lat', 0.0),
             'office_lat'
@@ -38,8 +28,8 @@ class AffiliateController extends Controller
 
         $paginator = $this->paginateArray(
             $collection->all(),
-            $perPage,
-            $page,
+            $this->getPerPage($request),
+            $this->getPage($request),
             TypeHelper::toStringStrict($request->url(), 'request URL'),
             (array) $request->query()
         );

@@ -11,20 +11,20 @@ final class ApiResponse
     /**
      * Build a standardized JSON response.
      *
-     * @param array|null $payload           Typed array representation of DTOs or single DTO
-     * @param int        $status            HTTP status code (200, 204, 400, etc.)
-     * @param array|null $pagination        Pagination info: ['current_page'=>..., ...]
-     * @param string|null $message          Optional message
-     * @param array|null $errors            Validation or domain errors
+     * @param array<string,mixed>|array<int,array<string,mixed>>|null $payload
+     * @param int                                                     $status
+     * @param array<string,int>|null                                  $pagination
+     * @param string|null                                             $message
+     * @param array<string,mixed>|null                                $errors
      *
      * @return JsonResponse
      */
     public static function make(
-        ?array $payload,
+        array|null $payload,
         int $status = Http::HTTP_OK,
-        ?array $pagination = null,
-        ?string $message = null,
-        ?array $errors = null
+        array|null $pagination = null,
+        string|null $message = null,
+        array|null $errors = null
     ): JsonResponse {
         $body = [
             'status'     => $status < 400 ? Http::HTTP_OK : Http::HTTP_BAD_REQUEST,
@@ -38,9 +38,10 @@ final class ApiResponse
     }
 
     /**
-     * Convert a LengthAwarePaginator to a simple pagination metadata array.
+     * Convert a LengthAwarePaginator to simple pagination metadata.
      *
-     * @param LengthAwarePaginator $paginator
+     * @template TValue
+     * @param LengthAwarePaginator<int, TValue> $paginator
      * @return array{
      *     current_page: int,
      *     per_page: int,

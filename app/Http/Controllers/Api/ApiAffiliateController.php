@@ -3,29 +3,19 @@
 namespace App\Http\Controllers\Api;
 
 use App\Application\AffiliateDistanceServiceInterface;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Http\Responses\ApiResponse;
 use App\Http\Traits\PaginatesArray;
 use App\Utils\TypeHelper;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class ApiAffiliateController extends Controller
+class ApiAffiliateController extends BaseController
 {
     use PaginatesArray;
 
     public function index(Request $request, AffiliateDistanceServiceInterface $service): JsonResponse
     {
-        $perPage = TypeHelper::toIntOrDefault(
-            $request->input('per_page', config('affiliates.per_page', 10)),
-            10
-        );
-
-        $page = TypeHelper::toIntOrDefault(
-            $request->input('page', config('affiliates.page', 1)),
-            1
-        );
-
         $officeLat = TypeHelper::toFloatStrict(
             config('affiliates.office_lat', 0.0),
             'office_lat'
@@ -36,17 +26,14 @@ class ApiAffiliateController extends Controller
             'office_lon'
         );
 
-        $collection = $service->getNearbyAffiliates(
-            config('affiliates.office_lat'),
-            config('affiliates.office_lon')
-        );
+        $collection = $service->getNearbyAffiliates($officeLat, $officeLon);
 
         $paginator = $this->paginateArray(
             $collection->all(),
-            $perPage,
-            $page,
+            $this->getPerPage($request),
+            $this->getPage($request),
             $request->url(),
-            $request->query()
+            (array) $request->query()
         );
 
         return ApiResponse::make(
