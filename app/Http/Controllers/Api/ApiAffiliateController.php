@@ -24,11 +24,11 @@ class ApiAffiliateController extends Controller
         );
 
         $paginator = $this->paginateArray(
-            items: $collection->all(),
-            perPage: $perPage,
-            page: $page,
-            path: $request->url(),
-            query: $request->query()
+            $collection->all(),
+            $perPage,
+            $page,
+            $request->url(),
+            $request->query()
         );
 
         return ApiResponse::make(

@@ -27,10 +27,10 @@ readonly class AffiliateDistanceService
         $matching = array_filter(
             $allAffiliates,
             fn (AffiliateDTO $affiliate) => $this->haversineDistance(
-                sourceLatitude: $affiliate->latitude,
-                sourceLongitude: $affiliate->longitude,
-                destinationLatitude: $officeLatitude,
-                destinationLongitude: $officeLongitude
+                $affiliate->latitude,
+                $affiliate->longitude,
+                $officeLatitude,
+                $officeLongitude
             ) <= $radiusKm
         );
 

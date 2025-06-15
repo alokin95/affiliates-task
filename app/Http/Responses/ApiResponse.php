@@ -4,7 +4,7 @@ namespace App\Http\Responses;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Symfony\Component\HttpFoundation\Response as Response;
+use Symfony\Component\HttpFoundation\Response as Http;
 
 final class ApiResponse
 {
@@ -20,21 +20,21 @@ final class ApiResponse
      * @return JsonResponse
      */
     public static function make(
-        array|null $payload,
-        int $status = 200,
-        array|null $pagination = null,
-        string|null $message = null,
-        array|null $errors = null
+        ?array $payload,
+        int $status = Http::HTTP_OK,
+        ?array $pagination = null,
+        ?string $message = null,
+        ?array $errors = null
     ): JsonResponse {
-        $response = [
-            'status'     => $status < 400 ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST,
+        $body = [
+            'status'     => $status < 400 ? Http::HTTP_OK : Http::HTTP_BAD_REQUEST,
             'message'    => $message,
             'payload'    => $payload,
             'pagination' => $pagination,
             'errors'     => $errors,
         ];
 
-        return response()->json($response, $status);
+        return new JsonResponse($body, $status);
     }
 
     /**
