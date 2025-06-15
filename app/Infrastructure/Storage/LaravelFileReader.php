@@ -4,6 +4,7 @@ namespace App\Infrastructure\Storage;
 
 use App\Core\Exception\FileNotFoundException;
 use App\Core\Storage\FileReaderInterface;
+use App\Core\Exception\FileReadException;
 use Illuminate\Support\Facades\Storage;
 
 readonly class LaravelFileReader implements FileReaderInterface
@@ -18,12 +19,16 @@ readonly class LaravelFileReader implements FileReaderInterface
      */
     public function read(string $path): string
     {
-        $content = Storage::disk($this->disk)->get($path);
-
-        if (!$content) {
+        if (! Storage::disk($this->disk)->exists($path)) {
             throw FileNotFoundException::fromPath($path);
         }
 
-        return $content;
+        $contents = Storage::disk($this->disk)->get($path);
+
+        if ($contents === '') {
+            throw new FileReadException("File is empty: {$path}");
+        }
+
+        return $contents;
     }
 }
