@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Application\AffiliateDistanceService;
+use App\Application\AffiliateDistanceServiceInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Responses\ApiResponse;
 use App\Http\Traits\PaginatesArray;
@@ -13,7 +13,7 @@ class ApiAffiliateController extends Controller
 {
     use PaginatesArray;
 
-    public function index(Request $request, AffiliateDistanceService $service): JsonResponse
+    public function index(Request $request, AffiliateDistanceServiceInterface $service): JsonResponse
     {
         $perPage = (int) $request->input('per_page', config('affiliates.per_page', 10));
         $page = (int) $request->input('page', 1);

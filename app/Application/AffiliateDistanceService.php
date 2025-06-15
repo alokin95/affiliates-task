@@ -7,7 +7,7 @@ use App\Constants\Earth;
 use App\Domain\Affiliates\AffiliateSourceInterface;
 use App\DTOs\AffiliateDTO;
 
-readonly class AffiliateDistanceService
+readonly class AffiliateDistanceService implements AffiliateDistanceServiceInterface
 {
     public function __construct(
         private AffiliateSourceInterface $affiliateSource

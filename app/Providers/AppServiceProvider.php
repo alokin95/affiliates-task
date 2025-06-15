@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Application\AffiliateDistanceService;
+use App\Application\AffiliateDistanceServiceInterface;
 use App\Core\Storage\FileReaderInterface;
 use App\Domain\Affiliates\AffiliateSourceInterface;
 use App\Infrastructure\FileAffiliateSource;
@@ -16,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->bind(AffiliateDistanceServiceInterface::class, AffiliateDistanceService::class);
         $this->app->bind(FileReaderInterface::class, LaravelFileReader::class);
         $this->app->bind(AffiliateSourceInterface::class, function ($app) {
             return new FileAffiliateSource(
