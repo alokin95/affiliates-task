@@ -43,9 +43,9 @@ class ApiAffiliateControllerTest extends TestCase
             ->assertJsonStructure([
                 'status',
                 'payload' => [
-                    '*' => ['affiliateId', 'name', 'latitude', 'longitude']
+                    '*' => ['affiliateId', 'name', 'latitude', 'longitude'],
                 ],
-                'pagination' => ['current_page', 'per_page', 'total', 'last_page']
+                'pagination' => ['current_page', 'per_page', 'total', 'last_page'],
             ]);
     }
 
@@ -69,7 +69,7 @@ class ApiAffiliateControllerTest extends TestCase
             ->shouldReceive('getNearbyAffiliates')
             ->once()
             ->andReturn(new AffiliateCollection([
-                new AffiliateDTO(1,'One',53,-6),
+                new AffiliateDTO(1, 'One', 53, -6),
             ]));
 
         $response = $this->getJson('/api/affiliates?page=abc&per_page=1');
@@ -84,7 +84,7 @@ class ApiAffiliateControllerTest extends TestCase
             ->shouldReceive('getNearbyAffiliates')
             ->once()
             ->andReturn(new AffiliateCollection([
-                new AffiliateDTO(1,'One',53,-6),
+                new AffiliateDTO(1, 'One', 53, -6),
             ]));
 
         $response = $this->getJson('/api/affiliates?page=1&per_page=10');

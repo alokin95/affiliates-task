@@ -39,10 +39,10 @@ class TypedCollectionTest extends TestCase
         $this->assertEquals([
             [
                 'affiliateId' => 1,
-                'name'         => 'Affiliate DTO',
-                'latitude'     => 1.0,
-                'longitude'    => 1.0,
-            ]
+                'name'        => 'Affiliate DTO',
+                'latitude'    => 1.0,
+                'longitude'   => 1.0,
+            ],
         ], $array);
     }
 

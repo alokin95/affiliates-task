@@ -13,7 +13,8 @@ class ApiResponseTest extends TestCase
     {
         $response = ApiResponse::make(['response' => 'data'], 200);
 
-        $body = json_decode($response->getContent(), true);;
+        $body = json_decode($response->getContent(), true);
+        ;
         $this->assertEquals(Response::HTTP_OK, $body['status']);
     }
 
@@ -38,11 +39,11 @@ class ApiResponseTest extends TestCase
 
     public function test_pagination_meta_is_included(): void
     {
-        $items = [['a'], ['b'], ['c']];
-        $paginator = new LengthAwarePaginator($items, 3, 1, 1, ['path'=>'/', 'query'=>[]]);
+        $items     = [['a'], ['b'], ['c']];
+        $paginator = new LengthAwarePaginator($items, 3, 1, 1, ['path' => '/', 'query' => []]);
 
         $response = ApiResponse::make($items, 200, ApiResponse::fromPaginator($paginator));
-        $body = json_decode($response->getContent(), true);
+        $body     = json_decode($response->getContent(), true);
 
         $this->assertArrayHasKey('pagination', $body);
         $this->assertSame(1, $body['pagination']['current_page']);
@@ -54,6 +55,7 @@ class ApiResponseTest extends TestCase
         $response = ApiResponse::make(null, Response::HTTP_NO_CONTENT);
 
         $this->assertEquals(Response::HTTP_NO_CONTENT, $response->getStatusCode());
-        $this->assertNull(json_decode($response->getContent(), true)['payload']);;
+        $this->assertNull(json_decode($response->getContent(), true)['payload']);
+        ;
     }
 }

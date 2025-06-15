@@ -3,8 +3,8 @@
 namespace App\Infrastructure\Storage;
 
 use App\Core\Exception\FileNotFoundException;
-use App\Core\Storage\FileReaderInterface;
 use App\Core\Exception\FileReadException;
+use App\Core\Storage\FileReaderInterface;
 use Illuminate\Support\Facades\Storage;
 
 readonly class LaravelFileReader implements FileReaderInterface

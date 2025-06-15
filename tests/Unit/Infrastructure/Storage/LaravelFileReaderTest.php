@@ -3,8 +3,8 @@
 namespace Tests\Unit\Infrastructure\Storage;
 
 use App\Core\Exception\FileNotFoundException;
-use App\Infrastructure\Storage\LaravelFileReader;
 use App\Core\Exception\FileReadException;
+use App\Infrastructure\Storage\LaravelFileReader;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
@@ -13,7 +13,7 @@ class LaravelFileReaderTest extends TestCase
     public function test_read_returns_file_contents_when_exists_and_not_empty(): void
     {
         Storage::fake('local');
-        $path = 'affiliates.txt';
+        $path     = 'affiliates.txt';
         $contents = "line1\nline2";
         Storage::disk('local')->put($path, $contents);
 

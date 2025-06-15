@@ -12,25 +12,26 @@ readonly class FileAffiliateSource implements AffiliateSourceInterface
     public function __construct(
         private FileReaderInterface $reader,
         private string $filePath = 'affiliates.txt',
-    ) {}
+    ) {
+    }
 
     /**
      * @return AffiliateDTO[]
      */
     public function getAll(): array
     {
-        $raw = $this->reader->read($this->filePath);
+        $raw   = $this->reader->read($this->filePath);
         $lines = array_filter(explode("\n", trim($raw)));
 
         $affiliates = [];
         foreach ($lines as $lineNumber => $line) {
             $data = json_decode($line, true);
-            if (!is_array($data)) {
+            if (!\is_array($data)) {
                 continue;
             }
 
             foreach (['affiliate_id', 'name', 'latitude', 'longitude'] as $key) {
-                if (!array_key_exists($key, $data)) {
+                if (!\array_key_exists($key, $data)) {
                     throw new FileParseException(
                         "Missing required key '{$key}' on line " . ($lineNumber + 1)
                     );

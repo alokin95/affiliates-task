@@ -3,9 +3,9 @@
 namespace Tests\Unit\Infrastructure;
 
 use App\Core\Exception\FileParseException;
+use App\Core\Storage\FileReaderInterface;
 use App\DTOs\AffiliateDTO;
 use App\Infrastructure\FileAffiliateSource;
-use App\Core\Storage\FileReaderInterface;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\TestCase;
 
@@ -63,7 +63,7 @@ class FileAffiliateSourceTest extends TestCase
         $affiliates = $source->getAll();
 
         $this->assertCount(2, $affiliates);
-        $this->assertEquals([1,3], array_map(fn(AffiliateDTO $d): int => $d->affiliateId, $affiliates));
+        $this->assertEquals([1, 3], array_map(fn (AffiliateDTO $d): int => $d->affiliateId, $affiliates));
     }
 
     /**

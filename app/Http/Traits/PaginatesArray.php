@@ -27,12 +27,12 @@ trait PaginatesArray
         array $query
     ): LengthAwarePaginator {
         return new LengthAwarePaginator(
-            array_slice($items, ($page - 1) * $perPage, $perPage),
-            count($items),
+            \array_slice($items, ($page - 1) * $perPage, $perPage),
+            \count($items),
             $perPage,
             $page,
             [
-                'path' => $path,
+                'path'  => $path,
                 'query' => $query,
             ]
         );

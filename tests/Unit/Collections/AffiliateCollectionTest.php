@@ -30,15 +30,15 @@ class AffiliateCollectionTest extends TestCase
 
     public function test_toArray_returns_associative_arrays(): void
     {
-        $dto = new AffiliateDTO(1, 'Affiliate DTO', 52.5, -6.5);
+        $dto        = new AffiliateDTO(1, 'Affiliate DTO', 52.5, -6.5);
         $collection = new AffiliateCollection([$dto]);
 
         $expected = [
             [
                 'affiliateId' => 1,
-                'name'         => 'Affiliate DTO',
-                'latitude'     => 52.5,
-                'longitude'    => -6.5,
+                'name'        => 'Affiliate DTO',
+                'latitude'    => 52.5,
+                'longitude'   => -6.5,
             ],
         ];
 
